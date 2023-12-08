@@ -1,0 +1,5 @@
+.banner {
+  background-image: linear-gradient(to bottom, #ff8a00, #e52e71);
+  background-image: url("./banner-bg.png");
+  @apply bg-cover bg-center h-fit relative;
+}

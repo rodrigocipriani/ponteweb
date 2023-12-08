@@ -1,0 +1,10 @@
+@keyframes fly {
+  100% {
+    transform: translateX(100%) translateY(-20%) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.bird {
+  animation: fly linear infinite;
+}
