@@ -10,10 +10,20 @@ type NewBirdProps = {
   animationDuration: number;
 };
 
+const MAX_BIRDS = 5;
+const MIN_DURATION = 30;
+const MAX_DURATION = 40;
+const NEW_BIRD_CYCLE_TIME_MILISEC = 2000;
+const MAX_TOP_BIRD_START_Y = 10;
+const MAX_BOTTOM_BIRD_START_Y = 50;
+
 const newBirdPropsMaker = (): NewBirdProps => ({
   id: Math.random(),
-  startY: 10 + Math.random() * 40,
-  animationDuration: 5 + Math.random() * 5,
+  startY:
+    MAX_TOP_BIRD_START_Y +
+    Math.random() * (MAX_BOTTOM_BIRD_START_Y - MAX_TOP_BIRD_START_Y),
+  animationDuration:
+    MIN_DURATION + Math.random() * (MAX_DURATION - MIN_DURATION),
 });
 
 export default function BirdContainer() {
@@ -21,7 +31,7 @@ export default function BirdContainer() {
   const [birds, setBirds] = useState<NewBirdProps[]>([newBirdPropsMaker()]);
 
   const addBird = useCallback(() => {
-    if (Math.random() < 0.5 && birds.length <= 5) {
+    if (Math.random() < 0.5 && birds.length <= MAX_BIRDS) {
       const newBirdProps = newBirdPropsMaker();
       setBirds((state) => [...state, newBirdProps]);
 
@@ -36,7 +46,7 @@ export default function BirdContainer() {
   useEffect(() => {
     const interval = setInterval(() => {
       addBird();
-    }, 100);
+    }, NEW_BIRD_CYCLE_TIME_MILISEC);
     setReady(true);
     return () => clearInterval(interval);
   }, [addBird]);
